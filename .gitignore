@@ -1,0 +1,7 @@
+*.swp
+*.swo
+__pycache__
+env/
+*.pyc
+*.pyo
+.DS_Store
