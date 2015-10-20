@@ -46,7 +46,7 @@ def main(odf_path):
             if n == 0:
                 print('|', end='')
                 for w in column_widths:
-                    print('-' * (w+2), end='|')
+                    print(':', '-' * (w+1), '|', sep='', end='')
                 print()
 
 if __name__ == '__main__':
