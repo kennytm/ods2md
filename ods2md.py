@@ -49,22 +49,33 @@ def main(odf_path):
     ods = ezodf.opendoc(odf_path)
 
     for sheet in ods.sheets:
-        print('##', sheet.name)
-
         column_widths = [max(display_len(display_text(cell)) for cell in column) for column in sheet.columns()]
+        if not any(column_widths):
+            continue
 
-        for n, row in enumerate(sheet.rows()):
-            print('|', end=' ')
-            for m, cell in enumerate(row):
-                content = display_text(cell)
-                disp_len = column_widths[m] + len(content) - display_len(content)
-                print('{0:<{1}}'.format(content, disp_len), end=' | ')
+        print('##', sheet.name)
+        printed_header = False
+
+        for row in sheet.rows():
+            contents = [display_text(cell) for cell in row]
+            if not any(contents):
+                continue
+
+            print('|', end='')
+            for m, content in enumerate(contents):
+                column_width = column_widths[m]
+                if not column_width:
+                    continue
+                disp_len = column_width + len(content) - display_len(content)
+                print(' {0:<{1}}'.format(content, disp_len), end=' |')
             print()
 
-            if n == 0:
+            if not printed_header:
+                printed_header = True
                 print('|', end='')
                 for w in column_widths:
-                    print(':', '-' * (w+1), '|', sep='', end='')
+                    if w:
+                        print(':', '-' * (w+1), '|', sep='', end='')
                 print()
 
 if __name__ == '__main__':
