@@ -34,9 +34,24 @@ def main(odf_path):
         print('##', sheet.name)
 
         column_widths = [max(display_len(display_text(cell)) for cell in column) for column in sheet.columns()]
+        # begin omit empty trailing columns (part 1 of 2)
+        while column_widths[-1] == 0:
+            column_widths.pop()
+        # end omit empty trailing columns (part 1 of 2)
 
         for n, row in enumerate(sheet.rows()):
+            # begin omit empty rows
+            row_content = ''
+            for m, cell in enumerate(row):
+                content = display_text(cell)
+                row_content += content
+            if row_content == '':
+                continue
+            # end omit empty rows
             print('|', end=' ')
+            # begin omit empty trailing columns (part 2 of 2)
+            del row[len(column_widths):]
+            # end omit empty trailing columns (part 2 of 2)
             for m, cell in enumerate(row):
                 content = display_text(cell)
                 disp_len = column_widths[m] + len(content) - display_len(content)
