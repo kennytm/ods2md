@@ -1,0 +1,14 @@
+sudo: false
+language: python
+
+python:
+    - "3.2"
+    - "3.6"
+    #- "pypy3"
+    # disabling PyPy3 until https://github.com/travis-ci/travis-ci/issues/6277 is solved.
+
+install:
+    - pip3 install -r requirements.txt
+
+script:
+    - python3 -m unittest test.py

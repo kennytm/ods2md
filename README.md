@@ -2,6 +2,7 @@ ods2md
 ======
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/kennytm/ods2md.svg?branch=master)](https://travis-ci.org/kennytm/ods2md)
 
 Convert LibreOffice Calc Spreadsheets (*.ods) into Markdown tables
 
