@@ -45,7 +45,7 @@ def display_text(cell):
 def display_len(s):
     return sum(DISPLAY_WIDTH[unicodedata.east_asian_width(c)] for c in s)
 
-def main(odf_path):
+def main(odf_path, out_file):
     ods = ezodf.opendoc(odf_path)
 
     for sheet in ods.sheets:
@@ -53,7 +53,7 @@ def main(odf_path):
         if not any(column_widths):
             continue
 
-        print('##', sheet.name)
+        print('##', sheet.name, file=out_file)
         printed_header = False
 
         for row in sheet.rows():
@@ -61,22 +61,22 @@ def main(odf_path):
             if not any(contents):
                 continue
 
-            print('|', end='')
+            print('|', end='', file=out_file)
             for m, content in enumerate(contents):
                 column_width = column_widths[m]
                 if not column_width:
                     continue
                 disp_len = column_width + len(content) - display_len(content)
-                print(' {0:<{1}}'.format(content, disp_len), end=' |')
-            print()
+                print(' {0:<{1}}'.format(content, disp_len), end=' |', file=out_file)
+            print(file=out_file)
 
             if not printed_header:
                 printed_header = True
-                print('|', end='')
+                print('|', end='', file=out_file)
                 for w in column_widths:
                     if w:
-                        print(':', '-' * (w+1), '|', sep='', end='')
-                print()
+                        print(':', '-' * (w+1), '|', sep='', end='', file=out_file)
+                print(file=out_file)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1], sys.stdout)
