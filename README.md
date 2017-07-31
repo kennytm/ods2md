@@ -23,7 +23,7 @@ Install
 3. Install `ezodf` for parsing *.ods files
 
     ```sh
-    pip3 -r requirements.txt
+    pip3 install -r requirements.txt
     ```
 
 Usage
