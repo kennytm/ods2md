@@ -36,7 +36,7 @@ LINEFEED_REGEX=re.compile('\r\n|[\r\n]')
 def display_text(cell):
     v = cell.value
     if isinstance(v, float):
-        return LINEFEED_REGEX.sub('<br>', '{:g}'.format(v))
+        return '{:g}'.format(v)
     elif v is None:
         return ''
     else:
