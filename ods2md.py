@@ -19,9 +19,7 @@
 
 from __future__ import print_function
 
-import ezodf
-import sys
-import unicodedata
+import ezodf, sys, re, unicodedata
 
 # Ref: http://stackoverflow.com/a/31666966/224671
 DISPLAY_WIDTH = {
@@ -33,6 +31,8 @@ DISPLAY_WIDTH = {
     'W': 2,
 }
 
+LINEFEED_REGEX=re.compile('\r\n|[\r\n]')
+
 def display_text(cell):
     v = cell.value
     if isinstance(v, float):
@@ -40,7 +40,7 @@ def display_text(cell):
     elif v is None:
         return ''
     else:
-        return str(v)
+        return LINEFEED_REGEX.sub('<br>', str(v))
 
 def display_len(s):
     return sum(DISPLAY_WIDTH[unicodedata.east_asian_width(c)] for c in s)
