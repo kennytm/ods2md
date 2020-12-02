@@ -31,7 +31,7 @@ DISPLAY_WIDTH = {
     'W': 2,
 }
 
-LINEFEED_REGEX=re.compile('(\r\n|\r|\n)', flags=re.MULTILINE)
+LINEFEED_REGEX=re.compile('\r\n|[\r\n]')
 
 def display_text(cell):
     v = cell.value
