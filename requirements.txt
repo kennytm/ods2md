@@ -1,2 +1,2 @@
-ezodf==0.3.2
-lxml==3.7.2
+ezodf
+lxml
